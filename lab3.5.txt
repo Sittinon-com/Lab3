@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+struct Student {
+    // กำหนดข้อมูลของนักเรียน
+    char name[50];
+    int age;
+    // end
+};
+
+struct Student (*GetStudent(int *room))[10];
+
+int main() {
+    struct Student (*children)[10];
+    int group;
+
+    children = GetStudent(&group);
+
+    // ตัวอย่างการเข้าถึงข้อมูลนักเรียน
+    printf("Enter information for students in room %d:\n", group + 1);
+    for (int i = 0; i < 10; i++) {
+        printf("Student %d:\n", i + 1);
+        printf("Name: ");
+        scanf("%s", children[group][i].name);
+        printf("Age: ");
+        scanf("%d", &children[group][i].age);
+        // รับข้อมูลเพิ่มเติมตามต้องการ
+    }
+
+    return 0;
+}
+
+struct Student (*GetStudent(int *room))[10] {
+    // สร้างตัวแปรเก็บข้อมูลนักเรียน
+    static struct Student students[2][10]; // มี 2 ห้อง
+
+    // รับจำนวนห้องจากผู้ใช้
+    printf("Enter the number of classrooms: ");
+    scanf("%d", room);
+
+    // คืนตำแหน่งของข้อมูลนักเรียน
+    return students;
+}//end funtion
